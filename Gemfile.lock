@@ -134,6 +134,10 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     redis (4.0.1)
+    rspec (3.7.0)
+      rspec-core (~> 3.7.0)
+      rspec-expectations (~> 3.7.0)
+      rspec-mocks (~> 3.7.0)
     rspec-core (3.7.0)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -208,6 +212,7 @@ DEPENDENCIES
   rails (~> 5.1.4)
   rails-controller-testing
   redis
+  rspec
   rspec-rails (~> 3.6)
   rubocop
   shoulda-matchers

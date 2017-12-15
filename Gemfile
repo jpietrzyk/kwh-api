@@ -57,6 +57,7 @@ group :test do
   gem 'database_cleaner'
   gem 'fakeredis'
   gem 'rails-controller-testing'
+  gem 'rspec'
   gem 'rspec-rails', '~> 3.6'
   gem 'shoulda-matchers'
   gem 'webmock'

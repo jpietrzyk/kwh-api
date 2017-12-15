@@ -18,7 +18,12 @@ class GetKwhService
     parse_feed unless in_cache
     build_data unless in_cache
     cache_request unless in_cache
+
+    Result.new(status: :success,
+               data: data,
+               message: 'Parse feed xml with SUCCESS')
   end
+
 
   private
 
