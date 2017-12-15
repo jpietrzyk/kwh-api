@@ -2,11 +2,9 @@
 # It fetches, parses, and caches data using various sub-services
 # It uses Waterfall gem for chain dependent sub-services
 class GetKwhService
-  include Waterfall
-
-  def initialize(start_time: nil, end_time: nil)
-    @start_time = start_time&.to_date || Date.today.midnight - 2.days
-    @end_time = end_time&.to_date || @start_time + 1.day
+  def initialize(start_date:, end_date:)
+    @start_date = start_date
+    @end_date = end_date
     @data = []
   end
 
@@ -24,12 +22,11 @@ class GetKwhService
                message: 'Report created SUCCESS')
   end
 
-
   private
 
   attr_accessor :fetch_result, :parse_result, :data, :in_cache
   attr_writer :feed_url
-  attr_reader :start_time, :end_time
+  attr_reader :start_date, :end_date
 
   def check_cache
     result = GetCachedRequestService.new(request: cache_key).call
@@ -38,25 +35,25 @@ class GetKwhService
   end
 
   def cache_key
-    "/?#{start_time}&#{end_time}"
+    "/?#{start_date}&#{end_date}"
   end
 
-  def parse_time(time)
-    time.strftime('%0d-%0m-%Y')
+  def parse_date(date)
+    date.strftime('%0d-%0m-%Y')
   end
 
-  def parse_start_time
-    @start_date ||= parse_time(start_time)
+  def parse_start_date
+    @start_date ||= parse_date(start_date)
   end
 
-  def parse_end_time
-    @end_date ||= parse_time(end_time)
+  def parse_end_date
+    @end_date ||= parse_date(end_date)
   end
 
   def fetch_feed
     @fetch_result = FetchFeedService.new(
-      start_date: parse_start_time,
-      end_date: parse_end_time
+      start_date: parse_start_date,
+      end_date: parse_end_date
     ).call
   end
 
@@ -68,7 +65,7 @@ class GetKwhService
     parse_result.data.locate(
       '*/ConsumptionHistory/HourConsumption'
     ).each do |node|
-      next unless (start_time..end_time).cover? node.ts.to_datetime
+      next unless (start_date..end_date).cover? node.ts.to_datetime
 
       @data << {
         val: node.text,

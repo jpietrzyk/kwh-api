@@ -1,0 +1,49 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/electricity_consumption_reports": {
+      "post": {
+        "summary": "Creates a report",
+        "tags": [
+          "Reports"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Report start date in dd-mm-yyyy format",
+            "format": "date"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Report end date in dd-mm-yyyy format",
+            "format": "date"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Report created"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    }
+  }
+}

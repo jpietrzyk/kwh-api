@@ -33,6 +33,9 @@ gem 'httparty'
 # Fast xml parser for parsing feed
 gem 'ox'
 
+# Documentation
+gem 'rswag'
+
 gem 'rubocop', require: false
 
 group :development, :production do
