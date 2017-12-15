@@ -19,14 +19,29 @@ module Api
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
-
-    # Only loads a smaller set of middleware suitable for API only apps.
-    # Middleware like session, flash, cookies can be added back manually.
-    # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # cors config
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get,:post, :put, :delete,
+                                               :options]
+      end
+    end
+
+    # Protection from DDoS, brute force attacks and another bad things
+    config.middleware.use Rack::Attack
+
+    # don't generate RSpec tests for views and helpers
+    config.generators do |g|
+      g.test_framework :rspec, fixture: true
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
+      g.view_specs false
+      g.helper_specs false
+      g.stylesheets = false
+      g.javascripts = false
+      g.helper = false
+    end
   end
 end
