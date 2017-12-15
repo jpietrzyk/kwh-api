@@ -8,6 +8,6 @@
 
 - [x] Finish fetching process
 - [x] Provide request and result caching mechanism
-- [ ] Provide endpoint for displaying data
+- [x] Provide endpoint for energy consumption reports
 - [ ] Add data layer
 - [ ] Provide second layer caching (in mongo db)
