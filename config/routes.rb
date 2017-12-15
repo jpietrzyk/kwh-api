@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  resource :electricity_consumption, only: ['show'], controller: 'electricity_consumption'
+  resources :electricity_consumption_reports,
+            only: ['create']
 end
