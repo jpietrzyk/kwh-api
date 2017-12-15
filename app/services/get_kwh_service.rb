@@ -5,8 +5,8 @@ class GetKwhService
   include Waterfall
 
   def initialize(start_time: nil, end_time: nil)
-    @start_time = start_time || Date.today.midnight - 2.days
-    @end_time = end_time || @start_time + 1.day
+    @start_time = start_time&.to_date || Date.today.midnight - 2.days
+    @end_time = end_time&.to_date || @start_time + 1.day
     @data = []
   end
 
@@ -21,7 +21,7 @@ class GetKwhService
 
     Result.new(status: :success,
                data: data,
-               message: 'Parse feed xml with SUCCESS')
+               message: 'Report created SUCCESS')
   end
 
 
