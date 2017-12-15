@@ -6,7 +6,7 @@ class Rack::Attack
   Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
 
   # Allow all local traffic
-  whitelist('allow-localhost') do |req|
+  safelist('allow-localhost') do |req|
     req.ip == '127.0.0.1' || req.ip == '::1'
   end
 
@@ -14,7 +14,7 @@ class Rack::Attack
   throttle('req/ip', limit: 5, period: 5, &:ip)
 
   # Send the following response to throttled clients
-  self.throttled_response = lambda(env) {
+  self.throttled_response = lambda { |env|
     retry_after = (env['rack.attack.match_data'] || {})[:period]
     [
       429,
