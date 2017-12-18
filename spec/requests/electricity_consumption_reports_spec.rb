@@ -5,13 +5,13 @@ describe 'Electricity consumption API', type: :request do
   describe 'POST /electricity_consumption_reports' do
     let(:valid_params) do
       {
-        start_time: '01-12-2017',
-        end_time: '05-12-2017'
+        start_date: '01-12-2017',
+        end_date: '05-12-2017'
       }
     end
     before do
       stub_request(:get, %r{/finestmedia.ee\/kwh/})
-        .to_return(status: 200, body: xml_content, headers: {})
+        .to_return(status: 201, body: xml_content, headers: {})
     end
     # TODO: Add params validation and specs for invalid params
     # (end_date < start_date and start_date < 2.years.ago)
@@ -20,15 +20,15 @@ describe 'Electricity consumption API', type: :request do
         post '/electricity_consumption_reports', params: valid_params
       end
 
-      it 'returns the consumption records' do
+      it 'returns the consumption records for requested time range' do
         expect(json).not_to be_empty
-        expect(json.first['time'].to_date).to eq(valid_params[:start_time]
+        expect(json.first['time'].to_date).to eq(valid_params[:start_date]
                                                  .to_date)
-        expect(json.last['time'].to_date).to eq(valid_params[:end_time]
+        expect(json.last['time'].to_date).to eq(valid_params[:end_date]
                                                  .to_date)
       end
 
-      it 'returns status code 201' do
+       it 'returns status code 201' do
         expect(response).to have_http_status(201)
       end
     end
@@ -36,13 +36,27 @@ describe 'Electricity consumption API', type: :request do
     context 'when params are empty' do
       before { post '/electricity_consumption_reports' }
 
-      it 'returns the consumption records for last days' do
+      it 'returns error' do
         expect(json).not_to be_empty
       end
 
-      it 'returns status code 201' do
-        expect(response).to have_http_status(201)
+      it 'returns status code 400' do
+        expect(response).to have_http_status(400)
       end
     end
+
+    context 'when params are invalid' do
+      before { post '/electricity_consumption_reports',
+               params: {start_date: 'asdf' } }
+
+      it 'returns error' do
+        expect(json).not_to be_empty
+      end
+
+      it 'returns status code 400' do
+        expect(response).to have_http_status(400)
+      end
+    end
+
   end
 end

@@ -19,18 +19,22 @@ gem 'puma', '~> 3.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# API protection
+gem 'rack-attack'
+
 gem 'rack-cors'
 
 # Service objects utils
 gem 'immutable-struct'
-# Chaining services
-gem 'waterfall'
 
 # Handling http requests
 gem 'httparty'
 
 # Fast xml parser for parsing feed
 gem 'ox'
+
+# Documentation
+gem 'rswag'
 
 gem 'rubocop', require: false
 

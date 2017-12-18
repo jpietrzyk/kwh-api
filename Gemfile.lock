@@ -70,6 +70,8 @@ GEM
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
     immutable-struct (2.3.0)
+    json-schema (2.8.0)
+      addressable (>= 2.4)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -98,6 +100,8 @@ GEM
     public_suffix (3.0.1)
     puma (3.11.0)
     rack (2.0.3)
+    rack-attack (5.0.1)
+      rack
     rack-cors (1.0.2)
     rack-test (0.8.2)
       rack (>= 1.0, < 3)
@@ -155,6 +159,19 @@ GEM
       rspec-mocks (~> 3.7.0)
       rspec-support (~> 3.7.0)
     rspec-support (3.7.0)
+    rswag (1.5.2)
+      rswag-api (= 1.5.2)
+      rswag-specs (= 1.5.2)
+      rswag-ui (= 1.5.2)
+    rswag-api (1.5.2)
+      railties (>= 3.1, < 6.0)
+    rswag-specs (1.5.2)
+      activesupport (>= 3.1, < 6.0)
+      json-schema (~> 2.2)
+      railties (>= 3.1, < 6.0)
+    rswag-ui (1.5.2)
+      actionpack (>= 3.1, < 6.0)
+      railties (>= 3.1, < 6.0)
     rubocop (0.52.0)
       parallel (~> 1.10)
       parser (>= 2.4.0.2, < 3.0)
@@ -185,7 +202,6 @@ GEM
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
     unicode-display_width (1.3.0)
-    waterfall (1.2.0)
     webmock (3.1.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -208,18 +224,19 @@ DEPENDENCIES
   ox
   pry
   puma (~> 3.7)
+  rack-attack
   rack-cors
   rails (~> 5.1.4)
   rails-controller-testing
   redis
   rspec
   rspec-rails (~> 3.6)
+  rswag
   rubocop
   shoulda-matchers
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
-  waterfall
   webmock
 
 BUNDLED WITH

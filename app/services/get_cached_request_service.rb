@@ -15,7 +15,7 @@ class GetCachedRequestService
     parse_data
     Result.new(status: :success,
                data: data,
-               message: data ? 'Request found. SUCCESS' : 'Request not found SUCCESS')
+               message: data ? 'Request found. SUCCESS' : 'Request not found. SUCCESS')
   rescue StandardError => e
     Result.new(status: :failure,
                data: request,

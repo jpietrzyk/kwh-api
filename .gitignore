@@ -19,3 +19,5 @@
 
 .byebug_history
 /.gtm/
+
+/public/apidocs/
