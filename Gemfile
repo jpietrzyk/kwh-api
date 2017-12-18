@@ -9,6 +9,7 @@ end
 gem 'rails', '~> 5.1.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+gem 'mongoid', '~> 6.1.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -60,6 +61,7 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'fakeredis'
+  gem 'mongoid-rspec', github: 'mongoid-rspec/mongoid-rspec'
   gem 'rails-controller-testing'
   gem 'rspec'
   gem 'rspec-rails', '~> 3.6'
