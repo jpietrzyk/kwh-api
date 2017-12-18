@@ -8,7 +8,10 @@ class ElectricityConsumptionReportsController < ApplicationController
     json_response(result.data, :created)
   end
 
-  ActionController::Parameters.action_on_unpermitted_parameters = :raise
+  # TODO: RSwag sends a lot of additional params
+  # try to configure it to not do that, so we can validate
+  # against unpermitted parameters
+  # ActionController::Parameters.action_on_unpermitted_parameters = :raise
 
   rescue_from(ActionController::UnpermittedParameters) do |pme|
     render json: { error: { unknown_parameters: pme.params } },

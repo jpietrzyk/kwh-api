@@ -27,6 +27,36 @@ describe 'Electricity consumption API', type: :request do
         expect(json.last['time'].to_date).to eq(valid_params[:end_date]
                                                  .to_date)
       end
+
+       it 'returns status code 201' do
+        expect(response).to have_http_status(201)
+      end
     end
+
+    context 'when params are empty' do
+      before { post '/electricity_consumption_reports' }
+
+      it 'returns error' do
+        expect(json).not_to be_empty
+      end
+
+      it 'returns status code 400' do
+        expect(response).to have_http_status(400)
+      end
+    end
+
+    context 'when params are invalid' do
+      before { post '/electricity_consumption_reports',
+               params: {start_date: 'asdf' } }
+
+      it 'returns error' do
+        expect(json).not_to be_empty
+      end
+
+      it 'returns status code 400' do
+        expect(response).to have_http_status(400)
+      end
+    end
+
   end
 end

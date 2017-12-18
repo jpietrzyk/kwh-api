@@ -11,22 +11,17 @@ describe 'Electricity Consumption Reports API' do
                 required: true,
                 type: :string,
                 description: 'Report start date in dd-mm-yyyy format',
-                format: :'date'
+                format: :date
       parameter name: :end_date,
                 in: :query,
                 required: true,
                 type: :string,
                 description: 'Report end date in dd-mm-yyyy format',
-                format: :'date'
+                format: :date
 
-      response '201', 'Report created' do
+      response '201', 'created' do
         let(:start_date) { '01-12-2017' }
         let(:end_date) { '05-12-2017' }
-        run_test!
-      end
-
-      response '422', 'invalid request' do
-        let(:start_date) { 'asdf' }
         run_test!
       end
     end

@@ -37,10 +37,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Report created"
-          },
-          "422": {
-            "description": "invalid request"
+            "description": "created"
           }
         }
       }
