@@ -1,5 +1,5 @@
 module Validate
-  class ElectricityConsumptionReport
+  class ElectricityConsumption
     include ActiveModel::Validations
 
     attr_accessor :start_date, :end_date
@@ -12,7 +12,7 @@ module Validate
     def initialize(params = ActionController::Parameters.new)
       @start_date = params[:start_date]
       @end_date = params[:end_date]
-      params.permit(:start_date, :end_date)
+      params.permit(:start_date, :end_date, :group_by, :price)
     end
   end
 end
