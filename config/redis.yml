@@ -1,0 +1,11 @@
+default: &default
+  url: redis://localhost:6379
+  db: 1
+
+development:
+  <<: *default
+test:
+  <<: *default
+production:
+  <<: *default
+  url: redis://somehost:6379
