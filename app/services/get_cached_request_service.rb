@@ -31,4 +31,8 @@ class GetCachedRequestService
   def parse_data
     @data = JSON.parse(redis.get(request))
   end
+
+  def clear_cache!
+    redis.keys.each { |k| redis.del k }
+  end
 end

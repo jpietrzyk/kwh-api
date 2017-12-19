@@ -5,8 +5,8 @@ class GetKwhService
   def initialize(start_date:, end_date:, group_by:, price:)
     @start_date = start_date
     @end_date = end_date
-    @group_by = group_by || :day
-    @price = price || 1.0
+    @group_by = group_by || 'day'
+    @price = price&.to_f
     @response_data = []
     @consumption_data = []
   end
@@ -78,29 +78,31 @@ class GetKwhService
 
       date = node.ts.to_date
 
+      # it is easier to serialize and unserialize this hash when
+      # keys are strings not symbols
       @response_data << {
-        val: node.text,
-        date: date,
-        org_date: node.ts,
+        'val' => node.text,
+        'date' => date,
+        'org_date' => node.ts,
         # for grouping
-        week_gr: "#{date.year}_#{date.cweek}",
-        month_gr: "#{date.year}_#{date.month}",
-        day_gr: "#{date.year}_#{date.month}_#{date.day}"
+        'week_gr' => "#{date.cweek}-#{date.year}",
+        'month_gr' => "#{date.month}-#{date.year}",
+        'day_gr' => "#{date.day}-#{date.month}-#{date.year}"
       }
     end
   end
 
   def grouped_response
-    response_data.group_by { |d| d["#{group_by}_gr".to_sym] }
+    response_data.group_by { |d| d["#{group_by}_gr"] }
   end
 
   def build_consumption_data
     grouped_response.each do |group, data|
-      consumption = data.map { |h| h[:val].to_f }.reduce(:+)
+      consumption = data.map { |h| h['val'].to_f }.reduce(:+).round(2)
       @consumption_data << {
         label: group.to_s,
         consumption: consumption,
-        price: consumption * price
+        price: (consumption * price).round(2)
       }
     end
   end
