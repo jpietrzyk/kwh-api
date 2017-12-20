@@ -5,14 +5,11 @@
     "version": "v1"
   },
   "paths": {
-    "/electricity_consumption_reports": {
-      "post": {
-        "summary": "Creates a report",
+    "/electricity_consumption": {
+      "get": {
+        "summary": "Gets consumption data",
         "tags": [
           "Reports"
-        ],
-        "consumes": [
-          "application/json"
         ],
         "produces": [
           "application/json"
@@ -33,11 +30,29 @@
             "type": "string",
             "description": "Report end date in dd-mm-yyyy format",
             "format": "date"
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "description": "Cost of 1KwH",
+            "format": "float"
+          },
+          {
+            "name": "group_by",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Grouping type, should be\n                              'day', 'week' or 'month'"
           }
         ],
         "responses": {
-          "201": {
-            "description": "created"
+          "200": {
+            "description": "when only start and end parameters provided"
+          },
+          "400": {
+            "description": "when invalid parameters provided"
           }
         }
       }

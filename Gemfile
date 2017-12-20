@@ -22,7 +22,6 @@ gem 'puma', '~> 3.7'
 
 # API protection
 gem 'rack-attack'
-
 gem 'rack-cors'
 
 # Service objects utils

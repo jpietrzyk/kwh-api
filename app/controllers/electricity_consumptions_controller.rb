@@ -2,12 +2,16 @@ class ElectricityConsumptionsController < ApplicationController
   before_action :validate_params
 
   def show
-    result = GetKwhService.new(start_date: params[:start_date].to_date,
-                               end_date: params[:end_date].to_date,
-                               group_by: params[:group_by],
-                               price: params[:price]).call
+    result = GetConsumptionDataService.new(start_date: params[:start_date],
+                                           end_date: params[:end_date],
+                                           group_by: params[:group_by],
+                                           price: params[:price]).call
 
-    json_response(result.data, :ok)
+    if result.success?
+      json_response(result.data, :ok)
+    else
+      json_response({ error: result.message }, :bad_request)
+    end
   end
 
   # TODO: RSwag sends a lot of additional params
