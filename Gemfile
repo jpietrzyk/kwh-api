@@ -9,7 +9,6 @@ end
 gem 'rails', '~> 5.1.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
-gem 'mongoid', '~> 6.1.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -39,9 +38,6 @@ gem 'rswag'
 gem 'rubocop', require: false
 
 group :development, :production do
-  # Redis will be used for caching requests
-  # It is not the best approach to cache all response,
-  # but it should be OK for now
   gem 'redis'
 end
 
