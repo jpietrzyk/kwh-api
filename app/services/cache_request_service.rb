@@ -5,7 +5,6 @@ require "json"
 # parsed and validated result as a value, so when request is in cache
 # we don't need parse raw xml, and validate responsed data
 class CacheRequestService
-
   def initialize(request:, result:)
     @request = request
     @result = result
@@ -17,7 +16,6 @@ class CacheRequestService
     Result.new(status: :success,
                data: request,
                message: 'Request cached SUCCESS')
-
   rescue StandardError => e
     Result.new(status: :failure,
                data: request,
