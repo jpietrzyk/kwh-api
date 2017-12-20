@@ -75,7 +75,7 @@ class GetConsumptionDataService
   end
 
   def build_response_data
-    result = BuildResponseService.new(data: parse_result, group_by: group_by,
+    result = BuildResponseService.new(data: parse_result.data,
                                       start_date: start_date.to_date,
                                       end_date: end_date.to_date).call
     raise ServiceError result.message if result.failure?
